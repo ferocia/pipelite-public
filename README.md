@@ -46,4 +46,4 @@ Given the above disclaimer it should hopefully be apparent that this code is all
 
 That said, it all works and works pretty damn well most of the time (see pics above), and looks pretty awesome.
 
-So why open source this? I dunno, why not? Really though it’s mostly because [@joho](https://github.com/joho) rightly [called me out for being a secretive jerk](https://twitter.com/johnbarton/status/743736597074456576).
+So why open source this? I dunno, why not!? I learned a lot building it, maybe someone else will get something out of the code. Really though it’s mostly because [@joho](https://github.com/joho) rightly [called me out for being a secretive jerk](https://twitter.com/johnbarton/status/743736597074456576).
