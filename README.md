@@ -31,7 +31,7 @@ Things that are currently being worked on, were started and abandoned because I 
 
 ## :point_up: Note:
 
-Pipelite is really just a hack project that I (@plasticine) was using to mess around outside of office-hours at @Ferocia, that somehow became somewhat—perhaps questionably—useful.
+Pipelite is really just a hack project that I ([@plasticine](https://github.com/plasticine)) was using to mess around outside of office-hours at [@Ferocia](https://github.com/Ferocia), that somehow became somewhat—perhaps questionably—useful.
 
 The original intent of this project was really just to give me an excuse to mess around in my spare time with a few languages and tecniques that I was curious about at the time. Some of them were completely new to me, others were just things that I wanted to experiement and try and learn from. Buzzwords I was curious about in particular were;
 - Elixir,
@@ -46,4 +46,4 @@ Given the above disclaimer it should hopefully be apparent that this code is all
 
 That said, it all works and works pretty damn well most of the time(see pics below), and looks pretty awesome.
 
-So why open source this? I dunno, why not? Really though it’s mostly because @joho rightly [called me out for being a secretive jerk](https://twitter.com/johnbarton/status/743736597074456576).
+So why open source this? I dunno, why not? Really though it’s mostly because [@joho](https://github.com/joho) rightly [called me out for being a secretive jerk](https://twitter.com/johnbarton/status/743736597074456576).
