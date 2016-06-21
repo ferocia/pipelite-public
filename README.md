@@ -21,8 +21,6 @@ Things that are currently being worked on, were started and abandoned because I 
 
 - failing log collection, aggregation and filtering in elastic search (I wanted to play with it)
 
-## I am a visual learner:
-
 #### It looks like this in a browser:
 
 ![](/../master/doc/browser.png?raw=true)
