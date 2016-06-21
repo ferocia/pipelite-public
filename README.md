@@ -44,6 +44,6 @@ The original intent of this project was really just to give me an excuse to mess
 
 Given the above disclaimer it should hopefully be apparent that this code is all hackey as hell, and held together with bubblegum, hopes, and a fist-full of dreams (so don’t judge me if you read the code!). :)
 
-That said, it all works and works pretty damn well most of the time(see pics below), and looks pretty awesome.
+That said, it all works and works pretty damn well most of the time (see pics above), and looks pretty awesome.
 
 So why open source this? I dunno, why not? Really though it’s mostly because [@joho](https://github.com/joho) rightly [called me out for being a secretive jerk](https://twitter.com/johnbarton/status/743736597074456576).
