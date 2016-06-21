@@ -42,7 +42,7 @@ The original intent of this project was really just to give me an excuse to mess
 - AWS
 - ...and a bunch of other stuff...
 
-Given the above disclaimer it should hopefully be apparent that this code is all hackey as hell, and held together with bubblegum, hopes, and a bunch of dreams (so don’t judge me if you read the code!). :)
+Given the above disclaimer it should hopefully be apparent that this code is all hackey as hell, and held together with bubblegum, hopes, and a fist-full of dreams (so don’t judge me if you read the code!). :)
 
 That said, it all works and works pretty damn well most of the time(see pics below), and looks pretty awesome.
 
