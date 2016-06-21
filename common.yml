@@ -1,0 +1,32 @@
+api:
+  build: "./services/api"
+  command: "phoenix.server"
+  restart: always
+  environment:
+    PORT: "4000"
+    DB_USERNAME: postgres
+  expose:
+    - "4000"
+
+ui:
+  build: "./services/ui"
+  command: "start"
+  restart: always
+  expose:
+    - "5000"
+
+nginx:
+  build: "./services/nginx"
+  expose:
+    - "80"
+
+postgres:
+  build: "./services/postgres"
+  expose:
+    - "5432"
+
+elasticsearch:
+  build: "./services/elasticsearch"
+  expose:
+    - "9200"
+    - "9300"

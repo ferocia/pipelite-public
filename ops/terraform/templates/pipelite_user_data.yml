@@ -1,0 +1,48 @@
+#cloud-config
+
+apt_reboot_if_required: true
+apt_update: true
+apt_upgrade: true
+locale: en_US.UTF-8
+package_upgrade: true
+timezone: UTC
+
+runcmd:
+  # Copy config across from S3 bucket
+  - aws --region ${aws_region} s3 cp s3://${config_bucket}/ /conf --recursive
+  - chown -R ubuntu:ubuntu /conf
+  - chmod +x /conf/**/bin/*
+
+  # Copy SSL certificate into place
+  - cp /conf/ssl/certificate.pem /etc/ssl/private/certificate.pem
+
+  # Create push/hub repo
+  - mkdir -p /var/git/pipelite.git
+  - git init --bare /var/git/pipelite.git
+  - rm -f /var/git/pipelite.git/hooks/*
+  - cp /conf/git/conf/hooks/post-receive /var/git/pipelite.git/hooks/post-receive
+  - chmod +x /var/git/pipelite.git/hooks/post-receive
+  - chown -R ubuntu:ubuntu /var/git/pipelite.git
+
+   # Create live repo
+  - mkdir -p /var/pipelite
+  - git init /var/pipelite
+  - cp /conf/git/conf/config /var/pipelite/.git/config
+  - rm -f /var/pipelite.git/hooks/*
+  - chown -R ubuntu:ubuntu /var/pipelite
+  - git remote add hub /var/git/pipelite.git
+  - git fetch hub
+  - git checkout -b hub/master
+
+  # Make a data-dir for our containers
+  - mkdir -p /mnt/data
+  - chown ubuntu:ubuntu /mnt/data
+
+  # Start consul-server container
+  - /conf/consul-server/bin/start
+
+  # Start registrator container
+  - /conf/registrator/bin/start
+
+  # Start the haproxy container
+  - /conf/haproxy/bin/start

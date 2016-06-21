@@ -1,0 +1,6 @@
+[remote "hub"]
+  url = /var/git/pipelite.git
+  fetch = +refs/heads/*:refs/remotes/hub/*
+
+[color]
+  ui = always

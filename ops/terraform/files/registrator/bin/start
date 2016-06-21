@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+IFS=' '
+
+main() {
+  # Start the registrator service.
+  docker run \
+    --detach \
+    --restart=always \
+    --name=registrator \
+    --net=host \
+    -v /var/run/docker.sock:/tmp/docker.sock \
+    gliderlabs/registrator:v6 -internal consul://localhost:8500
+}
+
+main

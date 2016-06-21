@@ -1,0 +1,198 @@
+[
+    {
+        "id": "d073d501ee93",
+        "uuid": "0228f2b0-e8ca-4fdf-bf8b-b578c73135b7",
+        "label": "volt-beta",
+        "connected": true,
+        "power": "on",
+        "color": {
+            "hue": 120,
+            "saturation": 1,
+            "kelvin": 3500
+        },
+        "brightness": 0.09999237048905166,
+        "group": {
+            "id": "ed186f2e4b6f4e5c1b9dcae30e6fa04a",
+            "name": "Pipelite"
+        },
+        "location": {
+            "id": "2b3b681c6afe3a686e7805cd30e234c3",
+            "name": "Ferocia"
+        },
+        "product_name": "LIFX Original 1000",
+        "capabilities": {
+            "has_color": true,
+            "has_variable_color_temp": true
+        },
+        "last_seen": "2015-07-30T10:00:12.529+00:00",
+        "seconds_since_seen": 0.039280622
+    },
+    {
+        "id": "d073d5020e47",
+        "uuid": "02126633-f160-4240-bbce-3cf50d04e5a7",
+        "label": "integration",
+        "connected": true,
+        "power": "on",
+        "color": {
+            "hue": 120,
+            "saturation": 1,
+            "kelvin": 3500
+        },
+        "brightness": 0.09999237048905166,
+        "group": {
+            "id": "ed186f2e4b6f4e5c1b9dcae30e6fa04a",
+            "name": "Pipelite"
+        },
+        "location": {
+            "id": "2b3b681c6afe3a686e7805cd30e234c3",
+            "name": "Ferocia"
+        },
+        "product_name": "LIFX Original 1000",
+        "capabilities": {
+            "has_color": true,
+            "has_variable_color_temp": true
+        },
+        "last_seen": "2015-07-30T10:00:12.546+00:00",
+        "seconds_since_seen": 0.022613278
+    },
+    {
+        "id": "d073d501b8fa",
+        "uuid": "02f7a6c8-8ec1-4f4a-bf5c-0f5deb21097a",
+        "label": "pipelite",
+        "connected": true,
+        "power": "on",
+        "color": {
+            "hue": 120,
+            "saturation": 1,
+            "kelvin": 3500
+        },
+        "brightness": 0.09999237048905166,
+        "group": {
+            "id": "ed186f2e4b6f4e5c1b9dcae30e6fa04a",
+            "name": "Pipelite"
+        },
+        "location": {
+            "id": "2b3b681c6afe3a686e7805cd30e234c3",
+            "name": "Ferocia"
+        },
+        "product_name": "LIFX Original 1000",
+        "capabilities": {
+            "has_color": true,
+            "has_variable_color_temp": true
+        },
+        "last_seen": "2015-07-30T10:00:12.541+00:00",
+        "seconds_since_seen": 0.027999448
+    },
+    {
+        "id": "d073d501b553",
+        "uuid": "027dad1d-35d4-4b0a-b54e-aa1142d12825",
+        "label": "johanna-android",
+        "connected": true,
+        "power": "on",
+        "color": {
+            "hue": 120,
+            "saturation": 1,
+            "kelvin": 3500
+        },
+        "brightness": 0.09999237048905166,
+        "group": {
+            "id": "ed186f2e4b6f4e5c1b9dcae30e6fa04a",
+            "name": "Pipelite"
+        },
+        "location": {
+            "id": "2b3b681c6afe3a686e7805cd30e234c3",
+            "name": "Ferocia"
+        },
+        "product_name": "LIFX Original 1000",
+        "capabilities": {
+            "has_color": true,
+            "has_variable_color_temp": true
+        },
+        "last_seen": "2015-07-30T10:00:12.533+00:00",
+        "seconds_since_seen": 0.035211941
+    },
+    {
+        "id": "d073d5020ac7",
+        "uuid": "02d78453-2066-4f11-8e58-b493651213ee",
+        "label": "johanna-ios",
+        "connected": true,
+        "power": "on",
+        "color": {
+            "hue": 0,
+            "saturation": 1,
+            "kelvin": 3500
+        },
+        "brightness": 0.24998855573357748,
+        "group": {
+            "id": "ed186f2e4b6f4e5c1b9dcae30e6fa04a",
+            "name": "Pipelite"
+        },
+        "location": {
+            "id": "2b3b681c6afe3a686e7805cd30e234c3",
+            "name": "Ferocia"
+        },
+        "product_name": "LIFX Original 1000",
+        "capabilities": {
+            "has_color": true,
+            "has_variable_color_temp": true
+        },
+        "last_seen": "2015-07-30T10:00:12.547+00:00",
+        "seconds_since_seen": 0.022067663
+    },
+    {
+        "id": "d073d5020c1b",
+        "uuid": "029843ea-1527-469b-b9c7-fe79ca4afdc3",
+        "label": "fub",
+        "connected": true,
+        "power": "on",
+        "color": {
+            "hue": 120,
+            "saturation": 1,
+            "kelvin": 3500
+        },
+        "brightness": 0.09999237048905166,
+        "group": {
+            "id": "ed186f2e4b6f4e5c1b9dcae30e6fa04a",
+            "name": "Pipelite"
+        },
+        "location": {
+            "id": "2b3b681c6afe3a686e7805cd30e234c3",
+            "name": "Ferocia"
+        },
+        "product_name": "LIFX Original 1000",
+        "capabilities": {
+            "has_color": true,
+            "has_variable_color_temp": true
+        },
+        "last_seen": "2015-07-30T10:00:12.529+00:00",
+        "seconds_since_seen": 0.040069777
+    },
+    {
+        "id": "d073d501ee66",
+        "uuid": "02f6393d-b502-4c24-bbab-23351ec8dfa7",
+        "label": "johanna",
+        "connected": true,
+        "power": "on",
+        "color": {
+            "hue": 120,
+            "saturation": 1,
+            "kelvin": 3500
+        },
+        "brightness": 0.09999237048905166,
+        "group": {
+            "id": "ed186f2e4b6f4e5c1b9dcae30e6fa04a",
+            "name": "Pipelite"
+        },
+        "location": {
+            "id": "2b3b681c6afe3a686e7805cd30e234c3",
+            "name": "Ferocia"
+        },
+        "product_name": "LIFX Original 1000",
+        "capabilities": {
+            "has_color": true,
+            "has_variable_color_temp": true
+        },
+        "last_seen": "2015-07-30T10:00:12.567+00:00",
+        "seconds_since_seen": 0.002756485
+    }
+]

@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+##
+# Usage: labelize NAME CMD [ARG1, ARG2...]
+#
+# Executes CMD with its arguments and reads the lines from its stdout/stderr.
+# Each line is then augmented with "[NAME]", in a pretty ANSI color before
+# being displayed in the terminal. This is similar to how tools like foreman
+# and docker-compose display their subprocess output.
+##
+
+set -e
+
+readonly red=$(tput setaf 1)
+readonly green=$(tput setaf 2)
+readonly yellow=$(tput setaf 3)
+readonly blue=$(tput setaf 4)
+readonly magenta=$(tput setaf 5)
+readonly cyan=$(tput setaf 6)
+readonly reset=$(tput sgr0)
+
+COLORS=(
+  $red
+  $green
+  $yellow
+  $blue
+  $magenta
+  $cyan)
+
+LABEL=$1
+shift
+
+# use the remainder of PID divided by the size of COLORS array to choose color
+ANSI_CODE=${COLORS[$[$$ % ${#COLORS[@]}]]}
+
+"$@" 2>&1 | while read -r line
+do
+  printf "${ANSI_CODE}| %-25s|${reset} %s\n" "$LABEL" "$line"
+done
+exit ${PIPESTATUS[0]}

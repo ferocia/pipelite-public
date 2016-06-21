@@ -1,0 +1,24 @@
+#!/bin/bash
+set -e
+
+while read oldrev newrev ref
+do
+  echo
+  echo "**** [Running Hub's post-receive hook] ****"
+  echo
+
+  if [[ $ref =~ .*/master$ ]];
+  then
+    unset GIT_DIR
+    cd /var/pipelite
+    git fetch hub
+    git reset --hard hub/master
+    git pull hub master
+    echo
+    echo "**** [Done! Running deploy script...] ****"
+    echo
+    ./ops/script/deploy "$oldrev" "$newrev" "$ref" 2>&1 | tee ./ops/script/deploy.log
+  else
+    echo "Ref '$ref' successfully received.  Doing nothing - only the master branch may be deployed on this server."
+  fi
+done

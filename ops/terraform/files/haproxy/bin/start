@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+IFS=' '
+
+config_path() {
+  realpath $(pwd)/$(dirname "$0")/../conf/$1
+}
+
+build() {
+  # Build the haproxy image.
+  docker build --tag haproxy $(config_path container)
+}
+
+start() {
+  # Start the haproxy service.
+  docker run \
+    --detach \
+    --restart=always \
+    --name=haproxy \
+    --volume=/etc/ssl/private/certificate.pem:/etc/ssl/private/certificate.pem \
+    --link=consul-server \
+    -p 80:80 \
+    -p 443:443 \
+    -p 1936:1936 \
+    haproxy
+}
+
+main() {
+  build
+  start
+}
+
+main

@@ -1,0 +1,96 @@
+{{$stack := env "STACK"}}
+{{$api_service := printf "%s-api" $stack}}
+{{$ui_service := printf "%s-ui" $stack}}
+{{$static_path := env "UI_1_ENV_STATIC_PATH"}}
+{{$fallback_static_path := "/mnt/containers/ui/static"}}
+
+map $http_upgrade $connection_upgrade {
+  default upgrade;
+  '' close;
+}
+
+upstream api_upstream {
+  least_conn;
+  {{range service $api_service}}
+  server {{.Address}}:{{.Port}} max_fails=3 fail_timeout=4s weight=1;{{else}}server 127.0.0.1:65333;{{end}}
+}
+
+upstream ui_upstream {
+  least_conn;
+  {{range service $ui_service}}
+  server {{.Address}}:{{.Port}} max_fails=3 fail_timeout=4s weight=1;{{else}}server 127.0.0.1:65333;{{end}}
+}
+
+server {
+  listen 80 default_server;
+  server_name _;
+  charset utf-8;
+
+  {{if and (ne $stack "dev") (ne $stack "test") (ne $stack "smoke")}}
+  set_real_ip_from {{env "HAPROXY_PORT_80_TCP_ADDR"}};
+  real_ip_header X-Forwarded-For;
+
+  satisfy any;
+  allow 127.0.0.1;
+  allow {{env "CONSUL_SERVER_PORT_8500_TCP_ADDR"}};  # Internal consul server address
+  allow {{env "HAPROXY_PORT_80_TCP_ADDR"}};  # Internal HAPROXY server adress
+
+  # TODO: Could allow this to be set via consul settings...
+  allow 54.165.103.71/32;  # Buildkite IP address
+  deny all;
+
+  # Require HTTP auth
+  auth_basic "Restricted";
+  auth_basic_user_file /etc/nginx/.htpasswd;
+  {{end}}
+
+  # Serve static assets
+  location ^~ /static {
+    # An ENV var shared through container linking, containing static compile path
+    alias {{if $static_path}}{{$static_path}}{{else}}{{$fallback_static_path}}{{end}};
+    autoindex on;
+    expires 1y;
+    add_header Cache-Control "public";
+  }
+
+  # Turn off basic auth for the webhook requests
+  location ^~ /api/v1/webhook {
+    auth_basic off;
+    proxy_pass http://api_upstream;
+    include /etc/nginx/proxy.conf;
+  }
+
+  # Match any /api routes and pipe them off to the API backend
+  location ^~ /api {
+    proxy_pass http://api_upstream;
+    include /etc/nginx/proxy.conf;
+  }
+
+  # Websocket backend
+  location ^~ /socket {
+    proxy_pass http://api_upstream;
+    include /etc/nginx/proxy.conf;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection $connection_upgrade;
+    proxy_set_header Host $host;
+  }
+
+  {{if eq $stack "dev"}}
+  # Redirect API development debugging requests back to the API service in dev.
+  location ^~ /phoenix {
+    proxy_pass http://api_upstream;
+    include /etc/nginx/proxy.conf;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection $connection_upgrade;
+  }
+  {{end}}
+
+  location / {
+    proxy_pass http://ui_upstream;
+    include /etc/nginx/proxy.conf;
+    root {{if $static_path}}{{$static_path}}{{else}}{{$fallback_static_path}}{{end}};
+    index index.html;
+  }
+}

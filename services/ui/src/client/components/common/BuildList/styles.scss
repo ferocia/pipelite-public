@@ -1,0 +1,79 @@
+.root {
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: separate;
+}
+
+.build td {
+  padding: 10px;
+  border-bottom: 1px solid #D4E5F5;
+}
+
+.buildIdColumn {
+  width: 100px;
+  vertical-align: middle;
+}
+
+.buildId {
+  font-size: 12px;
+  border-radius: 2px;
+  display: inline-block;
+  color: #fff;
+  background-color: #8147FF;
+  padding: 2px 6px;
+}
+
+.project {
+  font-size: 12px;
+  color: #555;
+  display: block;
+}
+
+.buildStatus {
+  float: right;
+  padding: 3px 6px;
+  font-size: 10px;
+  font-weight: normal;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+.isPassed {
+  background-color: #1DD543;
+  color: darken(#17912E, 15%);
+}
+
+.isFailed {
+  background-color: #FB1C2F;
+  color: darken(#C11837, 15%);
+}
+
+.isRunning {
+  background-color: #FFDB01;
+  color: darken(#FC8503, 15%);
+}
+
+.timestamp {
+  font-size: 12px;
+  color: #555;
+  display: block;
+}
+
+.timeSince {
+
+}
+
+.ref {
+  opacity: 0.5;
+}
+
+.avatarCol {
+  width: 30px;
+}
+
+.avatar {
+  display: block;
+  border-radius: 2px;
+  height: 21px;
+  width: 21px;
+}

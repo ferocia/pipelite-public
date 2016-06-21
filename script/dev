@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# Caution is a virtue.
+set -o nounset
+set -o errtrace
+set -o errexit
+set -eo pipefail
+
+export DOCKER_IP="$(docker-machine ip default)"
+
+wait_for_service() {
+  declare port="$1"
+
+  until nc -z "${DOCKER_IP}" "$port"; do
+    echo "waiting for ${DOCKER_IP}:${service}..."
+    sleep 1
+  done
+}
+
+compose() {
+  docker-compose -f docker-compose.yml "$@"
+}
+
+main() {
+  compose kill
+  compose rm -f consul api ui nginx
+  compose up -d --force-recreate consul registrator
+  wait_for_service 8500
+  compose up -d
+  compose logs api ui nginx
+}
+
+main "$@"

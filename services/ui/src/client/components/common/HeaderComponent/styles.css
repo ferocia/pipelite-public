@@ -1,0 +1,31 @@
+.root {
+  background-color: #151843;
+  width: 100%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.masthead {
+  display: block;
+  font-weight: bold;
+  margin-right: 80px;
+  color: #EAF4FE;
+  font-size: 18px;
+}
+
+.nav {
+  flex: 1;
+}
+
+.navItem {
+  color: #EAF4FE;
+  display: inline-block;
+  padding: 8px 16px;
+  margin-right: 30px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+

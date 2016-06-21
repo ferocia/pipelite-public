@@ -1,0 +1,129 @@
+data:
+  image: gliderlabs/alpine:latest
+  command: "true"
+  volumes:
+    - "/container/postgresql/data"
+    - "/container/elasticsearch/data"
+    - "/container/elasticsearch/logs"
+
+api:
+  extends:
+    file: "./common.yml"
+    service: api
+  command: "phoenix.server"
+  restart: always
+  environment:
+    MIX_ENV: dev
+    SERVICE_NAME: dev-api
+    BUILDKITE_ACCESS_TOKEN:
+    BUILDKITE_WEBHOOK_TOKEN:
+    LIFX_ACCESS_TOKEN:
+    LIFX_BUILDKITE_GROUP: "Pipelite Test"
+  volumes:
+    - "./services/api:/container/app"
+  links:
+    - postgres
+    - elasticsearch
+  ports:
+    - "4000:4000"
+
+ui:
+  extends:
+    file: "./common.yml"
+    service: ui
+  command: "devserver"
+  restart: always
+  environment:
+    STACK: dev
+    NODE_ENV: development
+    SERVICE_NAME: dev-ui
+  volumes:
+    - "./services/ui:/container/app"
+  links:
+    - api
+  ports:
+    - "5000:5000"
+
+ui_static:
+  extends:
+    file: "./common.yml"
+    service: ui
+  command: "webpack_dev_server"
+  ports:
+    - "5001:5001"
+  environment:
+    STACK: dev
+    NODE_ENV: development
+    SERVICE_NAME: dev-static
+  volumes:
+    - "./services/ui:/container/app"
+
+postgres:
+  extends:
+    file: "./common.yml"
+    service: postgres
+  environment:
+    STACK: dev
+    SERVICE_NAME: dev-postgres
+    PGDATA: /container/postgresql/data
+  volumes_from:
+    - data
+  ports:
+    - "5432:5432"
+
+elasticsearch:
+  extends:
+    file: "./common.yml"
+    service: elasticsearch
+  environment:
+    STACK: dev
+    SERVICE_NAME: dev-elasticsearch
+  volumes_from:
+    - data
+  ports:
+    - "9200:9200"
+    - "9300:9300"
+
+nginx:
+  extends:
+    file: "./common.yml"
+    service: nginx
+  volumes:
+    - "./services/nginx/consul-template.conf:/etc/consul-template/config.conf:ro"
+    - "./services/nginx/sites.ctmpl:/etc/consul-template/templates/sites.conf.ctmpl:ro"
+    - "./services/nginx/nginx.conf:/etc/nginx/nginx.conf:ro"
+    - "./services/nginx/proxy.conf:/etc/nginx/proxy.conf:ro"
+    - "./services/nginx/htpasswd:/etc/nginx/.htpasswd:ro"
+  volumes_from:
+    - ui_static
+  links:
+    - api
+    - ui
+    - ui_static
+    - consul-server
+  ports:
+    - "8000:80"
+  environment:
+    STACK: dev
+    SERVICE_NAME: dev-nginx
+
+consul-server:
+  image: gliderlabs/consul-server:0.5
+  command: -client=0.0.0.0 -bootstrap -ui-dir /ui -data-dir /data -advertise=127.0.0.1
+  log_driver: none
+  ports:
+    - "8300:8300"
+    - "8400:8400"
+    - "8500:8500"
+    - "8600:53/udp"
+  volumes:
+    - "/var/run/docker.sock:/var/run/docker.sock"
+
+registrator:
+  image: gliderlabs/registrator:v6
+  command: -internal -ip=127.0.0.1 -resync=30 consul://consul-server:8500
+  log_driver: none
+  links:
+    - consul-server
+  volumes:
+    - "/var/run/docker.sock:/tmp/docker.sock"

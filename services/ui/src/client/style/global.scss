@@ -1,0 +1,78 @@
+:global {
+  * {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    font-size: 10px;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body,
+  input,
+  textarea,
+  button,
+  select {
+    font-family: 'Work Sans', sans-serif;
+    line-height: 1.5;
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+
+  ol,
+  ul,
+  li {
+    list-style: none;
+  }
+
+  body,
+  ol,
+  ul,
+  li,
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+    padding: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 600;
+  }
+
+  [hidden],
+  template {
+    display: none;
+    visibility: hidden;
+  }
+
+  a {
+    text-decoration: none;
+    color: #2EB3FE;
+  }
+
+  code {
+    font-family: 'Droid Sans Mono', monospace;
+  }
+
+  input,
+  textarea,
+  button,
+  select {
+    font-family: 'Work Sans', sans-serif;
+    line-height: 1.5;
+    outline: none;
+  }
+}

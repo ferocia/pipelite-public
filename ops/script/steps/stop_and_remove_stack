@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+IFS=$'\n\t'
+
+source "$(dirname $0)/../lib/output.bash"
+source "$(dirname $0)/../lib/compose.bash"
+
+main() {
+  declare stack="$1"
+
+  log_info "Stopping '$stack' stack"
+  compose "$stack" stop --timeout 30
+
+  log_info "Cleaning up stopped containers..."
+  compose "$stack" rm -f
+}
+
+main "$@"

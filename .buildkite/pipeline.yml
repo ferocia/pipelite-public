@@ -1,0 +1,46 @@
+env:
+  STACK: "test"
+  REGISTRY: "docker.ferocia.com.au/pipelite"
+
+steps:
+  - name: ":docker:"
+    command: ".buildkite/steps/docker.bash"
+    agent_query_rules:
+      - docker=true
+
+  - wait
+
+  - name: ":satellite: :nail_care:"
+    command: ".buildkite/steps/api_lint.bash"
+    agent_query_rules:
+      - docker=true
+
+  - name: ":satellite: :one:"
+    command: ".buildkite/steps/api_test.bash"
+    agent_query_rules:
+      - docker=true
+
+  - name: ":tophat: :nail_care:"
+    command: ".buildkite/steps/ui_lint.bash"
+    agent_query_rules:
+      - docker=true
+
+  - name: ":tophat: :one:"
+    command: ".buildkite/steps/ui_test.bash"
+    agent_query_rules:
+      - docker=true
+
+  - name: ":fire: :warning:"
+    command: ".buildkite/steps/smoke_test.bash"
+    artifact_paths: "log/**/*.log"
+    agent_query_rules:
+      - docker=true
+      - capacity=low
+
+  - block
+
+  - name: ":rocket:"
+    command: ".buildkite/steps/deploy.bash"
+    branches: "master"
+    agent_query_rules:
+      - docker=true

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+IFS=' '
+
+main() {
+  echo '~~~ Setting up the environment'
+
+  export MIX_ENV='test'
+  export NODE_ENV='test'
+  export SERVICE_NAME="pipelite"
+}
+
+main

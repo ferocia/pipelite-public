@@ -1,0 +1,23 @@
+.root {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.header {
+  flex: 0;
+  padding: 20px 40px;
+}
+
+.main {
+  background-color: lighten(#DFEDFA, 5%);
+  padding: 40px;
+  flex: 1;
+}
+
+.footer {
+  background-color: lighten(#D4E5F5, 5%);
+  flex: 0;
+  padding: 20px 40px;
+}
+

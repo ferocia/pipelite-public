@@ -1,0 +1,8 @@
+# https://gist.github.com/dominicsayers/8319752
+
+index.number_of_shards: 1
+index.number_of_replicas: 0
+
+path:
+  logs: /container/elasticsearch/logs
+  data: /container/elasticsearch/data

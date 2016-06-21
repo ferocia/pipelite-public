@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+IFS=' '
+
+config_path() {
+  realpath $(pwd)/$(dirname "$0")/../conf/$1
+}
+
+start() {
+  # Start the consul server.
+  docker run \
+    --detach \
+    --restart=always \
+    --name=consul-server \
+    -p 8300:8300 \
+    -p 8301:8301 \
+    -p 8301:8301/udp \
+    -p 8302:8302 \
+    -p 8302:8302/udp \
+    -p 8400:8400 \
+    -p 8500:8500 \
+    -p 8600:53/udp \
+    -v /var/run/docker.sock:/tmp/docker.sock \
+    -v /mnt/data/consul-server:/data \
+    -v $(config_path consul-config.json):/etc/consul/config.json \
+    gliderlabs/consul-server:0.5 -config-file=/etc/consul/config.json
+}
+
+wait_until_up() {
+  # Block until it starts...
+  docker run -e PORTS=8500 --link consul-server:consul-server n3llyb0y/wait
+}
+
+main() {
+  start
+  wait_until_up
+}
+
+main

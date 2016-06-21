@@ -1,0 +1,4 @@
+deps
+*.ez
+erl_crash.dump
+_build

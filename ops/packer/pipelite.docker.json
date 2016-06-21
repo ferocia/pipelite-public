@@ -1,0 +1,39 @@
+{
+  "builders": [
+    {
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "type": "amazon-ebs",
+      "region": "ap-southeast-2",
+      "source_ami": "ami-b3c78c89",
+      "instance_type": "t2.micro",
+      "ssh_username": "ubuntu",
+      "ami_name": "pipelite-docker-{{isotime | clean_ami_name}}",
+      "ami_description": "A Docker host image based on Ubuntu 15.04 LTS",
+      "tags": {
+        "Release": "15.04 LTS",
+        "Docker": "1.8.3",
+        "Docker Compose": "1.5.0rc2"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "conf",
+      "destination": "/tmp"
+    },
+    {
+      "type": "shell",
+      "script": "scripts/install-tools.sh"
+    },
+    {
+      "type": "shell",
+      "script": "scripts/install-aws-tools.sh"
+    },
+    {
+      "type": "shell",
+      "script": "scripts/install-docker.sh"
+    }
+  ]
+}

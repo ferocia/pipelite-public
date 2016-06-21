@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+
+# Caution is a virtue.
+set -o nounset
+set -o errtrace
+set -o errexit
+set -o pipefail
+
+source "$(dirname $0)/_output.sh"
+
+show_message() {
+  cat << MessageDoc
+Pipelite bootstrap script.
+
+This script will attempt to prepare your machine to develop Pipelite.
+
+MessageDoc
+}
+
+check_docker_compose() {
+  echo "* Checking Docker Compose:"
+  if type "docker-compose" > /dev/null; then
+    local docker_compose_path="$(which docker-compose)"
+    echo "$docker_compose_path" | print_notice | indent
+    print_ok
+  else
+    print_error_and_fail "Docker compose not found"
+  fi
+}
+
+check_docker_compose_version() {
+  echo "* Checking Docker Compose version:"
+  local version=$(docker-compose --version | grep "docker-compose version" | cut -d : -f 2 | tr -d "[[:space:]]")
+  if [ "${version}" == "1.3.1" ]
+  then
+    local version_string="$(docker-compose --version)"
+    printf "$version_string" | print_notice | indent
+    print_ok
+  else
+    print_error_and_fail "Docker compose version (${version}) is incorrect, please install versions 1.3.1."
+  fi
+}
+
+build_docker_containers() {
+  echo "* Building Docker Containers:"
+  docker-compose build 2>&1 | print_notice | indent
+  if [[ $? == 0 ]];
+  then
+    print_ok
+  else
+    print_error
+    exit $?
+  fi
+}
+
+bootstrap_api_container_db() {
+  echo "* Bootstrapping API container DB:"
+  docker-compose run api mix do ecto.drop, ecto.create, ecto.migrate 2>&1 | print_notice | indent
+  if [[ $? == 0 ]];
+  then
+    print_ok
+  else
+    print_error
+    exit $?
+  fi
+}
+
+bootstrap_development_db() {
+  echo "* Bootstrapping API development DB:"
+  cd "./api"
+  mix do ecto.drop, ecto.create, ecto.migrate 2>&1 | print_notice | indent
+  cd "../"
+  if [[ $? == 0 ]];
+  then
+    print_ok
+  else
+    print_error
+    exit $?
+  fi
+}
+
+main() {
+  show_message
+  check_docker_compose
+  check_docker_compose_version
+  build_docker_containers
+  bootstrap_api_container_db
+  bootstrap_development_db
+}
+
+main

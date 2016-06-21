@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+IFS=$'\n\t'
+
+readonly DEPLOY_START_TIME=$(date +%s)
+EXIT_CODE="0"
+
+source "$(dirname $0)/lib/output.bash"
+source "$(dirname $0)/lib/stacks.bash"
+source "$(dirname $0)/lib/consul.bash"
+
+deploy_step() {
+  declare script="$(dirname $0)/steps/$1"; shift
+
+  set +e
+  $script "$@"
+  EXIT_CODE="$?"
+  set -e
+
+  if [[ "$EXIT_CODE" != "0" ]]; then
+    log_error "Deploy step '$script "$@"' exited non-zero ($EXIT_CODE)!"
+    exit $EXIT_CODE
+  fi
+}
+
+main() {
+  declare oldrev="$1"
+  declare newrev="$2"
+  declare ref="$3"
+
+  log_info "System information"
+  log "whoami: $(whoami)"
+  log "uptime: $(uptime)"
+
+  log_info "Docker information"
+  sudo docker info
+
+  log_info "Docker version"
+  sudo docker version
+
+  log_info "Docker Compose version"
+  sudo docker-compose version
+
+  log_info "Starting deploy ***************************************************"
+  log "Deploying: '${oldrev}' -> '${newrev}'"
+
+  log_info "Fetching details for stack configuration..."
+  local previous_stack=$(current_stack)
+  local next_stack=$(next_stack "$previous_stack")
+
+  log "Current stack is: '${previous_stack}'"
+  log "Next stack will be: '${next_stack}'"
+
+  export HAPROXY_CONTAINER_NAME="haproxy"
+  export CONSUL_SERVER_CONTAINER_NAME="consul-server"
+  export STACK="$next_stack"
+  export GITREF="$newrev"
+  export HAPROXY_CONTAINER_NAME="haproxy"
+  export CONSUL_SERVER_CONTAINER_NAME="consul-server"
+  export BUILDKITE_ACCESS_TOKEN=""
+  export BUILDKITE_WEBHOOK_TOKEN=""
+  export LIFX_ACCESS_TOKEN=""
+  export LIFX_BUILDKITE_GROUP="Pipelite"
+  export API_SENTRY_DSN=""
+  export UI_CLIENT_SENTRY_DSN=""
+  export UI_SERVER_SENTRY_DSN=""
+
+  deploy_step "build_stack" "${newrev}" "${next_stack}"
+  deploy_step "start_stack" "${newrev}" "${next_stack}"
+  deploy_step "stop_and_remove_stack" "${previous_stack}"
+
+  log_info "Letting consul know about the new stack"
+  consul-set "current_stack" "$next_stack"
+  consul-set "deployed_ref" "$newrev"
+  log "Current stack is now '$(current_stack)'."
+
+  exit $EXIT_CODE
+}
+
+cleanup() {
+  if [[ "$EXIT_CODE" != "0" ]]; then
+    local next_stack=$(next_stack "$previous_stack")
+
+    log_error "Cleaning up after failed deploy..."
+    deploy_step "stop_and_remove_stack" "${next_stack}"
+    log_error "DEPLOY FAILED!"
+  else
+    local now=$(date +%s)
+    local deploy_duration=$(expr $now - $DEPLOY_START_TIME)
+
+    log_success "DEPLOY COMPLETE! (in ${deploy_duration} seconds)"
+    log_success "Thanks for playing! :D"
+  fi
+}
+
+trap cleanup EXIT
+main "$@"

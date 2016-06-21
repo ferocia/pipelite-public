@@ -1,0 +1,37 @@
+global
+  log 127.0.0.1 local0
+  log 127.0.0.1 local1 notice
+  debug
+  stats timeout 10s
+  maxconn 4096
+  tune.ssl.default-dh-param 2048
+
+defaults
+  mode http
+  timeout connect         5s
+  timeout client          25s
+  timeout server          25s
+  timeout tunnel          3600s
+  timeout http-keep-alive 1s
+  timeout http-request    15s
+
+frontend http
+  bind *:80
+  bind *:443 ssl crt /etc/ssl/private/certificate.pem
+  mode http
+  {{range $i,$a:=services}}{{$name:=.Name}}{{range .Tags}}{{if eq . "http"}}
+  use_backend {{$name}}{{end}}{{end}}{{end}}
+
+{{range $i,$a:=services}}{{$name:=.Name}}{{range .Tags}}{{if eq . "http"}}
+backend {{$name}}
+  redirect scheme https if !{ ssl_fc }
+  balance roundrobin
+  option httpclose
+  option forwardfor
+  {{range $c,$d:=service $a.Name}}
+  server nginx-{{$c}} {{.Address}}:{{.Port}} check{{end}}{{end}}{{end}}{{end}}
+
+listen stats *:1936
+  bind *:1936 ssl crt /etc/ssl/private/certificate.pem
+  stats enable
+  stats uri /

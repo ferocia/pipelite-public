@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+IFS=$'\n\t'
+
+readonly DEFAULT_TIMEOUT=30
+
+source "$(dirname $0)/../lib/output.bash"
+source "$(dirname $0)/../lib/compose.bash"
+source "$(dirname $0)/../lib/consul.bash"
+
+check_service() {
+  declare service="$1"
+  consul-service "$service" | jq -e '[.[] | .Checks[].Status == "passing"] | all' > /dev/null
+}
+
+health_check() {
+  declare service="$1"
+  local timeout="$DEFAULT_TIMEOUT"
+  local seconds="0"
+
+  log_info "Waiting for '${service}' to boot and be health checked..."
+  while [ "$seconds" -lt "$timeout" ] && ! check_service "$service"; do
+    echo -n "."
+    seconds=$((seconds+1))
+    sleep 1
+  done
+
+  if [ "$seconds" -lt "$timeout" ]; then
+    consul-service "$service"
+    echo -n " OK!"
+    echo ""
+  else
+    echo ""
+    log_error "Timed out waiting for Consul to report that '$service' is healthy."
+    exit 1
+  fi
+}
+
+wait_for_new_stack() {
+  local iteration="${1:-1}"
+  local max_iterations="10"
+
+  if [[ $iteration -gt $max_iterations ]]; then
+    echo "Timed out..." && exit 1
+  else
+    printf "Attempt #%-2s | " $iteration
+    set +e
+    sudo docker exec "$HAPROXY_CONTAINER_NAME" curl --insecure -sS --fail https://127.0.0.1/health
+    # local status="$?"
+    # set -e
+    # if [[ $status -ne 0 ]]; then
+    #   sleep 1
+    #   wait_for_stack_to_boot $[$iteration+1]
+    # else
+    #   echo ""
+    #   echo "New stack is up!"
+    # fi
+  fi
+}
+
+main() {
+  declare deploy_rev="$1"
+  declare stack="$2"
+
+  # sudo rm -rf /mnt/data/postgresql/data
+  # sudo mkdir /mnt/data/postgresql/data
+
+  log_info "Killing any zombie '$stack' containers"
+  compose "$stack" kill
+
+  log_info "Cleaning up stopped '$stack' containers"
+  compose "$stack" rm --force
+
+  log_info "Starting new '$stack' stack"
+  compose "$stack" up -d --force-recreate
+
+  log_info "Scaling stack"
+  compose "$stack" scale ui=2
+
+  log_info "Waiting for postgres to be available..."
+  compose "$stack" run --rm postgres_waiter
+
+  log_info "Creating and migrating api database"
+  compose "$stack" run --rm api ecto.create
+  compose "$stack" run --rm api ecto.migrate
+
+  # log_info "Waiting for elasticsearch to be available..."
+  # compose "$stack" run --rm elasticsearch_waiter
+  # log_info "Creating Elastic Search indexes (detached)"
+  # compose "$stack" run -d --name elasticsearch_index_creator api pipelite.elasticsearch.create
+
+  health_check "${stack}-api"
+  health_check "${stack}-ui"
+  health_check "${stack}-nginx"
+
+  # wait_for_new_stack
+}
+
+main "$@"

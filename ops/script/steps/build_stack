@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+IFS=$'\n\t'
+
+source "$(dirname $0)/../lib/output.bash"
+source "$(dirname $0)/../lib/compose.bash"
+
+main() {
+  declare deploy_rev="$1"
+  declare stack="$2"
+
+  # I think I might need to kill off the elasticsearch cluster here...
+  log_info "Building '$stack' stack"
+  compose "$stack" build
+}
+
+main "$@"

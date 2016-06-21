@@ -1,0 +1,396 @@
+{
+  "build": {
+    "id": "57e7b277-75fe-49f2-bb64-dc4ca73fac56",
+    "url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds/11903",
+    "web_url": "https://buildkite.com/ferocia/johanna/builds/11903",
+    "number": 11903,
+    "state": "scheduled",
+    "message": "Merge pull request #4682 from Ferocia/qc-2141\n\n[QC2141] Add a fee may be charged to this service to cancel cheque UI",
+    "commit": "cd4927b37ccea44a183b0791d28218ad7cc94eef",
+    "branch": "master",
+    "source": "webhook",
+    "creator": null,
+    "created_at": "2015-06-25 23:48:51 UTC",
+    "scheduled_at": "2015-06-25 23:48:51 UTC",
+    "started_at": null,
+    "finished_at": null,
+    "meta_data": {
+    },
+    "jobs": [
+      {
+        "id": "944b5cd7-db0e-49d6-a180-0c6328411d48",
+        "type": "script",
+        "name": "Sanity",
+        "state": "scheduled",
+        "web_url": "https://buildkite.com/ferocia/johanna/builds/11903#944b5cd7-db0e-49d6-a180-0c6328411d48",
+        "log_url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds/11903/jobs/944b5cd7-db0e-49d6-a180-0c6328411d48/log",
+        "raw_log_url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds/11903/jobs/944b5cd7-db0e-49d6-a180-0c6328411d48/log.txt",
+        "artifacts_url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds/11903/jobs/944b5cd7-db0e-49d6-a180-0c6328411d48/artifacts",
+        "script_path": "script/test/pipeline/first_step",
+        "command": "script/test/pipeline/first_step",
+        "exit_status": null,
+        "artifact_paths": "",
+        "agent": null,
+        "created_at": "2015-06-25 23:48:51 UTC",
+        "scheduled_at": "2015-06-25 23:48:51 UTC",
+        "started_at": null,
+        "finished_at": null
+      },
+      {
+        "id": "119fb0f9-5b4f-421e-9a03-ba740c6b172f",
+        "type": "script",
+        "name": "Features",
+        "state": "scheduled",
+        "web_url": "https://buildkite.com/ferocia/johanna/builds/11903#119fb0f9-5b4f-421e-9a03-ba740c6b172f",
+        "log_url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds/11903/jobs/119fb0f9-5b4f-421e-9a03-ba740c6b172f/log",
+        "raw_log_url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds/11903/jobs/119fb0f9-5b4f-421e-9a03-ba740c6b172f/log.txt",
+        "artifacts_url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds/11903/jobs/119fb0f9-5b4f-421e-9a03-ba740c6b172f/artifacts",
+        "script_path": "script/test/pipeline/features_step",
+        "command": "script/test/pipeline/features_step",
+        "exit_status": null,
+        "artifact_paths": "tmp/database_dumps.zip;npm-debug.log;tmp/capybara/screenshot_*;tmp/log_files.zip;log_files.zip;spec/ui/**/candidate.png;spec/ui/**/diff.png",
+        "agent": null,
+        "created_at": "2015-06-25 23:48:51 UTC",
+        "scheduled_at": "2015-06-25 23:48:51 UTC",
+        "started_at": null,
+        "finished_at": null
+      },
+      {
+        "id": "776c2e20-a315-4ee6-bec0-3ddc46be5ab6",
+        "type": "script",
+        "name": "Unit",
+        "state": "scheduled",
+        "web_url": "https://buildkite.com/ferocia/johanna/builds/11903#776c2e20-a315-4ee6-bec0-3ddc46be5ab6",
+        "log_url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds/11903/jobs/776c2e20-a315-4ee6-bec0-3ddc46be5ab6/log",
+        "raw_log_url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds/11903/jobs/776c2e20-a315-4ee6-bec0-3ddc46be5ab6/log.txt",
+        "artifacts_url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds/11903/jobs/776c2e20-a315-4ee6-bec0-3ddc46be5ab6/artifacts",
+        "script_path": "script/test/pipeline/unit_step",
+        "command": "script/test/pipeline/unit_step",
+        "exit_status": null,
+        "artifact_paths": "tmp/database_dumps.zip;tmp/capybara/screenshot_*;tmp/log_files.zip;log_files.zip;spec/ui/**/candidate.png;spec/ui/**/diff.png",
+        "agent": null,
+        "created_at": "2015-06-25 23:48:51 UTC",
+        "scheduled_at": "2015-06-25 23:48:51 UTC",
+        "started_at": null,
+        "finished_at": null
+      },
+      {
+        "id": "1958d946-dcb9-45e3-b4f1-16e74d771f6a",
+        "type": "script",
+        "name": "JS Unit",
+        "state": "scheduled",
+        "web_url": "https://buildkite.com/ferocia/johanna/builds/11903#1958d946-dcb9-45e3-b4f1-16e74d771f6a",
+        "log_url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds/11903/jobs/1958d946-dcb9-45e3-b4f1-16e74d771f6a/log",
+        "raw_log_url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds/11903/jobs/1958d946-dcb9-45e3-b4f1-16e74d771f6a/log.txt",
+        "artifacts_url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds/11903/jobs/1958d946-dcb9-45e3-b4f1-16e74d771f6a/artifacts",
+        "script_path": "script/test/pipeline/javascript_step",
+        "command": "script/test/pipeline/javascript_step",
+        "exit_status": null,
+        "artifact_paths": "npm-debug.log",
+        "agent": null,
+        "created_at": "2015-06-25 23:48:51 UTC",
+        "scheduled_at": "2015-06-25 23:48:51 UTC",
+        "started_at": null,
+        "finished_at": null
+      },
+      {
+        "id": "fd6a7a20-0dbe-45a7-abf9-7a65e6b1d506",
+        "type": "script",
+        "name": "UI",
+        "state": "scheduled",
+        "web_url": "https://buildkite.com/ferocia/johanna/builds/11903#fd6a7a20-0dbe-45a7-abf9-7a65e6b1d506",
+        "log_url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds/11903/jobs/fd6a7a20-0dbe-45a7-abf9-7a65e6b1d506/log",
+        "raw_log_url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds/11903/jobs/fd6a7a20-0dbe-45a7-abf9-7a65e6b1d506/log.txt",
+        "artifacts_url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds/11903/jobs/fd6a7a20-0dbe-45a7-abf9-7a65e6b1d506/artifacts",
+        "script_path": "script/test/pipeline/javascript_ui_step",
+        "command": "script/test/pipeline/javascript_ui_step",
+        "exit_status": null,
+        "artifact_paths": "npm-debug.log;vendor/ui/log/**/*.log",
+        "agent": null,
+        "created_at": "2015-06-25 23:48:51 UTC",
+        "scheduled_at": "2015-06-25 23:48:51 UTC",
+        "started_at": null,
+        "finished_at": null
+      },
+      {
+        "id": "77b75455-3d9c-492b-ad1a-9cdcf2e609b8",
+        "type": "script",
+        "name": "Local Acceptance",
+        "state": "scheduled",
+        "web_url": "https://buildkite.com/ferocia/johanna/builds/11903#77b75455-3d9c-492b-ad1a-9cdcf2e609b8",
+        "log_url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds/11903/jobs/77b75455-3d9c-492b-ad1a-9cdcf2e609b8/log",
+        "raw_log_url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds/11903/jobs/77b75455-3d9c-492b-ad1a-9cdcf2e609b8/log.txt",
+        "artifacts_url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds/11903/jobs/77b75455-3d9c-492b-ad1a-9cdcf2e609b8/artifacts",
+        "script_path": "script/deploy-to-self.sh",
+        "command": "script/deploy-to-self.sh",
+        "exit_status": null,
+        "artifact_paths": "tmp/database_dumps.zip;log_files.zip;tmp/log_files.zip;npm-debug.log;tmp/capybara/screenshot_*;vendor/j-auto/tmp/capybara/screenshot_*",
+        "agent": null,
+        "created_at": "2015-06-25 23:48:51 UTC",
+        "scheduled_at": "2015-06-25 23:48:51 UTC",
+        "started_at": null,
+        "finished_at": null
+      },
+      {
+        "id": "0ffe8b8d-1bd4-47d8-9f4d-d7fde267eca5",
+        "type": "waiter"
+      },
+      {
+        "id": "2cf964fd-303d-4139-ac3d-6241a916417e",
+        "type": "script",
+        "name": "UI Docs",
+        "state": "waiting",
+        "web_url": "https://buildkite.com/ferocia/johanna/builds/11903#2cf964fd-303d-4139-ac3d-6241a916417e",
+        "log_url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds/11903/jobs/2cf964fd-303d-4139-ac3d-6241a916417e/log",
+        "raw_log_url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds/11903/jobs/2cf964fd-303d-4139-ac3d-6241a916417e/log.txt",
+        "artifacts_url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds/11903/jobs/2cf964fd-303d-4139-ac3d-6241a916417e/artifacts",
+        "script_path": "script/test/pipeline/ui_docs_step",
+        "command": "script/test/pipeline/ui_docs_step",
+        "exit_status": null,
+        "artifact_paths": "npm-debug.log;vendor/ui/docs/build/**/*",
+        "agent": null,
+        "created_at": "2015-06-25 23:48:51 UTC",
+        "scheduled_at": "2015-06-25 23:48:51 UTC",
+        "started_at": null,
+        "finished_at": null
+      },
+      {
+        "id": "be3341d0-8462-4881-832b-a2a48b779354",
+        "type": "script",
+        "name": "Remote Acceptance",
+        "state": "waiting",
+        "web_url": "https://buildkite.com/ferocia/johanna/builds/11903#be3341d0-8462-4881-832b-a2a48b779354",
+        "log_url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds/11903/jobs/be3341d0-8462-4881-832b-a2a48b779354/log",
+        "raw_log_url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds/11903/jobs/be3341d0-8462-4881-832b-a2a48b779354/log.txt",
+        "artifacts_url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds/11903/jobs/be3341d0-8462-4881-832b-a2a48b779354/artifacts",
+        "script_path": "script/test/pipeline/deploy_to_dev",
+        "command": "script/test/pipeline/deploy_to_dev",
+        "exit_status": null,
+        "artifact_paths": "tmp/capybara/screenshot_*;vendor/j-auto/tmp/capybara/screenshot_*",
+        "agent": null,
+        "created_at": "2015-06-25 23:48:51 UTC",
+        "scheduled_at": "2015-06-25 23:48:51 UTC",
+        "started_at": null,
+        "finished_at": null
+      }
+    ]
+  },
+  "project": {
+    "id": "bfb5ffda-a5c7-4a76-8641-4397bcf9436e",
+    "url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna",
+    "web_url": "https://buildkite.com/ferocia/johanna",
+    "name": "johanna",
+    "slug": "johanna",
+    "repository": "git@github.com:Ferocia/johanna.git",
+    "provider": {
+      "id": "github",
+      "webhook_url": "https://webhook.buildkite.com/deliver/afe8649f4175d4de29af"
+    },
+    "builds_url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds",
+    "created_at": "2014-04-09 01:37:58 UTC",
+    "steps": [
+      {
+        "type": "script",
+        "name": "Sanity",
+        "command": "script/test/pipeline/first_step",
+        "artifact_paths": "",
+        "branch_configuration": "",
+        "env": {
+        },
+        "timeout_in_minutes": 15,
+        "agent_query_rules": [
+          "ruby=true",
+          "multi=false"
+        ],
+        "concurrency": null,
+        "parallelism": null
+      },
+      {
+        "type": "script",
+        "name": "Features",
+        "command": "script/test/pipeline/features_step",
+        "artifact_paths": "tmp/database_dumps.zip;npm-debug.log;tmp/capybara/screenshot_*;tmp/log_files.zip;log_files.zip;spec/ui/**/candidate.png;spec/ui/**/diff.png",
+        "branch_configuration": "",
+        "env": {
+        },
+        "timeout_in_minutes": 30,
+        "agent_query_rules": [
+          "ruby=true",
+          "postgresql=true",
+          "memcache=true",
+          "redis=true",
+          "nodejs=true",
+          "multi=true"
+        ],
+        "concurrency": null,
+        "parallelism": null
+      },
+      {
+        "type": "script",
+        "name": "Unit",
+        "command": "script/test/pipeline/unit_step",
+        "artifact_paths": "tmp/database_dumps.zip;tmp/capybara/screenshot_*;tmp/log_files.zip;log_files.zip;spec/ui/**/candidate.png;spec/ui/**/diff.png",
+        "branch_configuration": "",
+        "env": {
+        },
+        "timeout_in_minutes": 20,
+        "agent_query_rules": [
+          "multi=false",
+          "ruby=true",
+          "postgresql=true",
+          "memcache=true",
+          "redis=true",
+          "nodejs=true"
+        ],
+        "concurrency": null,
+        "parallelism": null
+      },
+      {
+        "type": "script",
+        "name": "JS Unit",
+        "command": "script/test/pipeline/javascript_step",
+        "artifact_paths": "npm-debug.log",
+        "branch_configuration": "",
+        "env": {
+        },
+        "timeout_in_minutes": 20,
+        "agent_query_rules": [
+          "ruby=true",
+          "postgresql=true",
+          "memcache=true",
+          "redis=true",
+          "nodejs=true",
+          "multi=false"
+        ],
+        "concurrency": null,
+        "parallelism": null
+      },
+      {
+        "type": "script",
+        "name": "UI",
+        "command": "script/test/pipeline/javascript_ui_step",
+        "artifact_paths": "npm-debug.log;vendor/ui/log/**/*.log",
+        "branch_configuration": "",
+        "env": {
+          "SAUCE_BROWSERS": "IE8,IE10,IE11,Chrome,Safari"
+        },
+        "timeout_in_minutes": 20,
+        "agent_query_rules": [
+          "ruby=true",
+          "postgresql=true",
+          "memcache=true",
+          "redis=true",
+          "nodejs=true",
+          "multi=false"
+        ],
+        "concurrency": null,
+        "parallelism": null
+      },
+      {
+        "type": "script",
+        "name": "Local Acceptance",
+        "command": "script/deploy-to-self.sh",
+        "artifact_paths": "tmp/database_dumps.zip;log_files.zip;tmp/log_files.zip;npm-debug.log;tmp/capybara/screenshot_*;vendor/j-auto/tmp/capybara/screenshot_*",
+        "branch_configuration": "",
+        "env": {
+          "TZ": "Australia/Melbourne",
+          "PROCESSES": "4"
+        },
+        "timeout_in_minutes": 25,
+        "agent_query_rules": [
+          "ruby=true",
+          "postgresql=true",
+          "memcache=true",
+          "redis=true",
+          "nodejs=true",
+          "multi=true"
+        ],
+        "concurrency": null,
+        "parallelism": null
+      },
+      {
+        "type": "waiter"
+      },
+      {
+        "type": "script",
+        "name": "UI Docs",
+        "command": "script/test/pipeline/ui_docs_step",
+        "artifact_paths": "npm-debug.log;vendor/ui/docs/build/**/*",
+        "branch_configuration": "master",
+        "env": {
+        },
+        "timeout_in_minutes": 10,
+        "agent_query_rules": [
+          "ruby=true",
+          "postgresql=true",
+          "memcache=true",
+          "redis=true",
+          "nodejs=true",
+          "multi=false"
+        ],
+        "concurrency": null,
+        "parallelism": null
+      },
+      {
+        "type": "script",
+        "name": "Remote Acceptance",
+        "command": "script/test/pipeline/deploy_to_dev",
+        "artifact_paths": "tmp/capybara/screenshot_*;vendor/j-auto/tmp/capybara/screenshot_*",
+        "branch_configuration": "master",
+        "env": {
+          "TZ": "Australia/Melbourne",
+          "CONFIG": ".env.dev",
+          "PROCESSES": "4"
+        },
+        "timeout_in_minutes": 25,
+        "agent_query_rules": [
+          "ruby=true",
+          "postgresql=true",
+          "memcache=true",
+          "redis=true",
+          "nodejs=true",
+          "multi=true"
+        ],
+        "concurrency": null,
+        "parallelism": null
+      }
+    ],
+    "env": {
+      "DISABLE_RUBYWMQ": "true",
+      "FUB_SEED": "false",
+      "DISPLAY": ":2.0",
+      "RAILS_ENV": "test",
+      "RACK_ENV": "test",
+      "NODE_ENV": "test",
+      "FLIP_UI_ENABLED": "set"
+    },
+    "featured_build": {
+      "id": "263a3ce5-d812-49b1-aaf7-caf899923d97",
+      "url": "https://api.buildkite.com/v1/organizations/ferocia/projects/johanna/builds/11902",
+      "web_url": "https://buildkite.com/ferocia/johanna/builds/11902",
+      "number": 11902,
+      "state": "running",
+      "message": "Merge branch 'master' into qc-2128",
+      "commit": "8419f780c54fcbd0cb0177a53f52ac1105d85a08",
+      "branch": "qc-2128",
+      "env": {
+      },
+      "source": "webhook",
+      "creator": null,
+      "created_at": "2015-06-25 23:43:07 UTC",
+      "scheduled_at": "2015-06-25 23:43:07 UTC",
+      "started_at": "2015-06-25 23:43:10 UTC",
+      "finished_at": null,
+      "meta_data": {
+        "buildkite:git:branch": "* (detached from 8419f78)",
+        "buildkite:git:commit": "commit 8419f780c54fcbd0cb0177a53f52ac1105d85a08\nMerge: 8a08a83 eeaeb22\nAuthor:     Michael Morris <mtcmorris@gmail.com>\nAuthorDate: Fri Jun 26 09:42:41 2015 +1000\nCommit:     Michael Morris <mtcmorris@gmail.com>\nCommitDate: Fri Jun 26 09:42:41 2015 +1000\n\n    Merge branch 'master' into qc-2128"
+      }
+    },
+    "scheduled_builds_count": 0,
+    "running_builds_count": 1,
+    "scheduled_jobs_count": 0,
+    "running_jobs_count": 2,
+    "waiting_jobs_count": 1
+  },
+  "sender": null
+}

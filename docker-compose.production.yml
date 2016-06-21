@@ -1,0 +1,117 @@
+api:
+  extends:
+    file: common.yml
+    service: api
+  command: "phoenix.server"
+  restart: always
+  environment:
+    STACK: "${STACK}"
+    GITREF: "${GITREF}"
+    MIX_ENV: prod
+    SERVICE_NAME: "${STACK}-api"
+    SERVICE_TAGS: "${STACK}"
+    BUILDKITE_WEBHOOK_TOKEN: "${BUILDKITE_WEBHOOK_TOKEN}"
+    BUILDKITE_ACCESS_TOKEN: "${BUILDKITE_ACCESS_TOKEN}"
+    LIFX_ACCESS_TOKEN: "${LIFX_ACCESS_TOKEN}"
+    LIFX_BUILDKITE_GROUP: "${LIFX_BUILDKITE_GROUP}"
+    SERVICE_CHECK_HTTP: /health
+    API_SENTRY_DSN: "${API_SENTRY_DSN}"
+  links:
+    - postgres
+    - elasticsearch
+  labels:
+    - "com.pipelite.stack=${STACK}"
+    - "com.pipelite.ref=${GITREF}"
+
+ui:
+  extends:
+    file: "./common.yml"
+    service: ui
+  restart: always
+  environment:
+    STACK: "${STACK}"
+    GITREF: "${GITREF}"
+    NODE_ENV: production
+    SERVICE_NAME: "${STACK}-ui"
+    SERVICE_TAGS: "${STACK}"
+    SERVICE_CHECK_HTTP: /health
+    UI_CLIENT_SENTRY_DSN: "${UI_CLIENT_SENTRY_DSN}"
+    UI_SERVER_SENTRY_DSN: "${UI_SERVER_SENTRY_DSN}"
+  volumes:
+    - "/mnt/containers/ui/public"
+  links:
+    - api
+  labels:
+    - "com.pipelite.stack=${STACK}"
+    - "com.pipelite.ref=${GITREF}"
+
+postgres:
+  extends:
+    file: common.yml
+    service: postgres
+  restart: always
+  volumes:
+    - "/mnt/data/postgresql/data:/var/lib/postgresql/data"
+  environment:
+    STACK: "${STACK}"
+    GITREF: "${GITREF}"
+    SERVICE_NAME: "${STACK}-postgres"
+    SERVICE_TAGS: "${STACK}"
+    PGDATA: "/var/lib/postgresql/data/pgdata"
+  labels:
+    - "com.pipelite.stack=${STACK}"
+    - "com.pipelite.ref=${GITREF}"
+
+postgres_waiter:
+  image: n3llyb0y/wait:v3
+  links:
+    - postgres
+  environment:
+    PORTS: "5432"
+
+elasticsearch:
+  extends:
+    file: "./common.yml"
+    service: elasticsearch
+  restart: always
+  environment:
+    STACK: "${STACK}"
+    GITREF: "${GITREF}"
+    SERVICE_NAME: "${STACK}-elasticsearch"
+    SERVICE_TAGS: "${STACK}"
+  labels:
+    - "com.pipelite.stack=${STACK}"
+    - "com.pipelite.ref=${GITREF}"
+  volumes:
+    - "/mnt/data/elasticsearch/data:/container/elasticsearch/data"
+    - "/mnt/data/elasticsearch/logs:/container/elasticsearch/logs"
+
+elasticsearch_waiter:
+  image: n3llyb0y/wait:v3
+  links:
+    - elasticsearch
+  environment:
+    PORTS: "9200,9300"
+
+nginx:
+  extends:
+    file: common.yml
+    service: nginx
+  restart: always
+  links:
+    - api
+    - ui
+  external_links:
+    - "${HAPROXY_CONTAINER_NAME}:haproxy"
+    - "${CONSUL_SERVER_CONTAINER_NAME}:consul-server"
+  volumes_from:
+    - ui
+  environment:
+    STACK: "${STACK}"
+    GITREF: "${GITREF}"
+    SERVICE_NAME: "${STACK}-nginx"
+    SERVICE_TAGS: "${STACK},http"
+    SERVICE_80_CHECK_HTTP: "/health"
+  labels:
+    - "com.pipelite.stack=${STACK}"
+    - "com.pipelite.ref=${GITREF}"

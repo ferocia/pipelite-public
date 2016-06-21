@@ -1,0 +1,53 @@
+@-webkit-keyframes SocketConnectedPulsate {
+  0%   { background-color: #1DD543; }
+  50%  { background-color: #18A032; }
+  100% { background-color: #1DD543; }
+}
+
+.root {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  border: 1px solid rgba(#fff, 0.5);
+  color: rgba(#fff, 0.5);
+  border-radius: 4px;
+  padding: 6px;
+}
+
+.isConnecting,
+.isConnected,
+.isDisconnected {
+  padding-left: 10px;
+
+  &::before {
+    display: block;
+    float: left;
+  }
+
+  &::after {
+    content: '';
+    box-shadow: 0px 1px 6px rgba(#151843, 0.75);
+    display: block;
+    width: 14px;
+    height: 14px;
+    border-radius: 10px;
+    margin-left: 10px;
+    float: right;
+    text-transform: uppercase;
+    animation: SocketConnectedPulsate 3s ease-in-out;
+    animation-iteration-count: infinite;
+  }
+}
+
+.isConnecting::after {
+  background-color: #FFDB01;
+}
+
+.isConnected::after {
+  background-color: #1DD543;
+}
+
+.isDisconnected::after {
+  background-color: #F71C30;
+}
+
