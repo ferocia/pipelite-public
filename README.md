@@ -29,7 +29,7 @@ Things that are currently being worked on, were started and abandoned because I 
 
 #### ...and it could look something like this on a wall:
 
-![](/../master/doc/wall.png?raw=true)
+![](/../master/doc/wall.jpg?raw=true)
 
 ## :point_up: Note:
 
